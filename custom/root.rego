@@ -7,6 +7,8 @@ default allow := false
 # Example rule - you can replace this with something of your own
 allow {
  	input.user.key == "test"
+  input.resource.type == "document"
+  input.action == "read"
 }
 # Also, you can add more allow blocks here to get an OR effect
 # allow {
