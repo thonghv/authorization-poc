@@ -4,7 +4,7 @@ import data.permit.custom
 import data.permit.debug
 import data.permit.policies
 
-default allow := false
+default allow := true
 
 allow {
 	policies.allow
