@@ -1,6 +1,6 @@
 package permit.custom
 
-default allow := true
+default allow := false
 
 # You can find the official Rego tutorial at:
 # https://www.openpolicyagent.org/docs/latest/policy-language/
