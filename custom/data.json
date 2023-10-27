@@ -1,1 +1,104 @@
-
+{
+    "organizations": [
+        {
+            "id": "TELADOC"
+        }
+    ],
+    "patients": [
+        {
+            "id": "patient1.doc",
+            "parent_id": "team:us"
+        },
+        {
+            "id": "patient2.doc",
+            "parent_id": "team:us"
+        },
+        {
+            "id": "patient3.doc",
+            "parent_id": "team:us"
+        },
+        {
+            "id": "patient10.doc",
+            "parent_id": "team:uk"
+        },
+        {
+            "id": "patient11.doc",
+            "parent_id": "team:uk"
+        },
+        {
+            "id": "patient12.doc",
+            "parent_id": "team:uk"
+        }
+    ],
+    "roles": {
+        "admin": {
+            "grants": [
+                "view",
+                "edit"
+            ]
+        },
+        "viewer": {
+            "grants": [
+                "view"
+            ]
+        }
+    },
+    "teams": [
+        {
+            "id": "us",
+            "parent_id": "organization:TELADOC"
+        },
+        {
+            "id": "uk",
+            "parent_id": "organization:TELADOC"
+        }
+    ],
+    "users": [
+        {
+            "assignments": [
+                {
+                    "resource": "organization:TELADOC",
+                    "role": "viewer"
+                },
+                {
+                    "resource": "team:us",
+                    "role": "admin"
+                }
+            ],
+            "id": "sally",
+            "manager": "alice"
+        },
+        {
+            "assignments": [
+                {
+                    "resource": "team:uk",
+                    "role": "viewer"
+                },
+                {
+                    "resource": "patient10.doc",
+                    "role": "admin"
+                }
+            ],
+            "id": "tim",
+            "manager": "lily"
+        },
+        {
+            "assignments": [],
+            "id": "alice"
+        },
+        {
+            "assignments": [],
+            "id": "bob",
+            "manager": "lily"
+        },
+        {
+            "assignments": [],
+            "id": "lily",
+            "manager": "luna"
+        },
+        {
+            "assignments": [],
+            "id": "luna"
+        }
+    ]
+}
