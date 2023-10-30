@@ -14,7 +14,7 @@ user_is_admin {
 	 some i
 
  	# "admin" is the `i`-th element in the user->role mappings for the identified user.
- 	data.users[input.user.key].roles[i] == "admin"
+ 	data.users[0].roles[i] == "admin"
 }
 
 # Also, you can add more allow blocks here to get an OR effect
