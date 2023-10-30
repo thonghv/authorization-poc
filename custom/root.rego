@@ -1,12 +1,15 @@
 package permit.custom
 
-default allow := true
+default allow := false
 
 # You can find the official Rego tutorial at:
 # https://www.openpolicyagent.org/docs/latest/policy-language/
 # Example rule - you can replace this with something of your own
 allow {
  	input.user.key == "test"
+  input.resource.type == "document"
+  input.action == "read"
+  data.pcode == "abcde"
 }
 # Also, you can add more allow blocks here to get an OR effect
 # allow {
