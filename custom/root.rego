@@ -6,7 +6,7 @@ default allow := false
 # https://www.openpolicyagent.org/docs/latest/policy-language/
 # Example rule - you can replace this with something of your own
 allow {
- 	input.user.key == "test"
+ 	input.user.key == "alice"
   input.resource.type == "document"
   input.action == "read"
 }
