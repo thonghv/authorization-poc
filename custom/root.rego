@@ -6,7 +6,7 @@ default allow := false
 # https://www.openpolicyagent.org/docs/latest/policy-language/
 # Example rule - you can replace this with something of your own
 allow {
-	data.organizations[0].id == "TELADOC"
+	user_is_admin
 }
 
 user_is_admin {
