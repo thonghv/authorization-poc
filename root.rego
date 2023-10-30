@@ -4,7 +4,8 @@ import data.permit.custom
 import data.permit.debug
 import data.permit.policies
 
-default allow := true
+default allow := false
+default pcode := "abc"
 
 allow {
 	policies.allow
