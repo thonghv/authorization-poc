@@ -8,6 +8,14 @@ default allow := false
 allow {
 	data.organizations[0].id == "TELADOC"
 }
+
+user_is_admin {
+	# for some `i`...
+	some i
+
+	# "admin" is the `i`-th element in the user->role mappings for the identified user.
+	data.organizations[i].id == "TELADOC"
+
 # Also, you can add more allow blocks here to get an OR effect
 # allow {
 #     # i.e if you add my_custom_rule here - the policy will allow
