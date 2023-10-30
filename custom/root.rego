@@ -13,10 +13,7 @@ allow {
 }
 
 allow {
- 	input.user.key == "test"
-  input.resource.type == "document"
-  input.action == "read"
-  data.pcode == "ab"
+	user_is_admin
 }
 
 user_is_admin {
