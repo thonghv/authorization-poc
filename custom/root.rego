@@ -6,7 +6,7 @@ default allow := false
 # https://www.openpolicyagent.org/docs/latest/policy-language/
 # Example rule - you can replace this with something of your own
 allow {
-	data.users[0].id == "sally"
+	data.organizations[0].id == "TELADOC"
 }
 # Also, you can add more allow blocks here to get an OR effect
 # allow {
