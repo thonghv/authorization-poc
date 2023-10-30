@@ -9,7 +9,6 @@ allow {
  	input.user.key == "test"
   input.resource.type == "document"
   input.action == "read"
-  data.pcode == "ab"
 }
 
 allow {
