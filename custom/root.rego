@@ -8,7 +8,7 @@ default allow := false
 allow {
 	user_is_admin
 }
-print(data.users)
+
 user_is_admin {
 	 # for some `i`...
 	 some i
