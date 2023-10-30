@@ -6,5 +6,5 @@ default allow := false
 # https://www.openpolicyagent.org/docs/latest/policy-language/
 # Example rule - you can replace this with something of your own
 allow {
-	data.custom.organizations[0].id == "TELADOC"
+	data.custom.users.alice.roles[0] == "admin"
 }
