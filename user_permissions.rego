@@ -78,7 +78,7 @@ is_filtered_resource(resource) {
 	is_filtered_resource_type(resource)
 }
 
-build_permissions_object(resource_object_key, resource_type, resource_key, resource_attributes, resource_permissions) := {
+build_permissions_object(resource_object_key, resource_type, resource_key, resource_attributes, resource_permissions, roles) := {
     sprintf("%s:%s",[resource_type,resource_key]): {
         resource_object_key: {
             "key": resource_key,
@@ -86,6 +86,7 @@ build_permissions_object(resource_object_key, resource_type, resource_key, resou
             "attributes": resource_attributes,
         },
         "permissions": resource_permissions,
+		"roles": roles,
     }
 }
 
@@ -101,6 +102,10 @@ roles_permissions(role_assignments, resource_details) := {sprintf("%s:%s", [reso
 
 	# extract permission grants
 	permission := resource_permissions[_]
+}
+
+remove_built_in_roles(roles) := filtered_roles {
+	filtered_roles := [role | role := roles[i]; role != "tenant-association"]
 }
 
 default __rebac_roles := {}
@@ -138,15 +143,17 @@ __rbac_permissions[assigned_object] := build_permissions_object(
 	tenant_key,
 	object.get(tenant_obj, "attributes", {}),
 	permissions,
+	roles,
 ) {
 	tenant_details := split_resource_to_parts(assigned_object)
 	tenant_key := tenant_details.resource_instance
 	is_filtered_resource(tenant_details)
 	tenant_obj := data.tenants[tenant_key]
-	role_assignments := user_assignments[assigned_object]
+	assigned_roles := user_assignments[assigned_object]
 
 	# iterate role assignments
-	permissions := roles_permissions(role_assignments, tenant_details)
+	permissions := roles_permissions(assigned_roles, tenant_details)
+	roles := remove_built_in_roles(assigned_roles)
 }
 
 _rebac_permissions[resource] := build_permissions_object(
@@ -155,6 +162,7 @@ _rebac_permissions[resource] := build_permissions_object(
 	resource_details.resource_instance,
 	object.get(resource_obj, "attributes", {}),
 	permissions,
+	stripped_roles,
 ) {
 	rebac_all_roles := __rebac_roles
 	some resource, roles in rebac_all_roles
@@ -165,6 +173,16 @@ _rebac_permissions[resource] := build_permissions_object(
 		role := roles[_]
 		stripped_role := split_resource_role_to_parts(role).role
 	]
-
 	permissions := roles_permissions(stripped_roles, resource_details)
+}
+
+tenants[tenant] {
+	some assigned_object, _ in user_assignments
+	startswith(assigned_object, "__tenant:")
+	tenant_details := split_resource_to_parts(assigned_object)
+	tenant_key := tenant_details.resource_instance
+	tenant := object.union(
+		object.get(data.tenants, tenant_key, {}),
+		{"key": tenant_key},
+	)
 }
